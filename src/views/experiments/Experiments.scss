@@ -39,6 +39,7 @@ h5 {
     display: flex;
     flex-direction: row;
     width: 100%;
+    justify-content: center;
     &-content {
       display: flex;
       flex-direction: column;
@@ -48,6 +49,9 @@ h5 {
       }
       @media (max-width: 1090px) {
         width: 50%;
+      }
+      @media (max-width: 768px) {
+        width: 100%;
       }
       .welcome {
         display: flex;
@@ -65,16 +69,40 @@ h5 {
         }
       }
     }
+    .recipe {
+      &-opened {
+        top: auto;
+      }
+      &-closed {
+        top: 130vh;
+      }
+    }
     &-recipe {
       display: flex;
-      width: 270px;
-      height: 511px;
+      width: 280px;
+      height: 530px;
       margin: 0 auto;
       margin-top: 50px;
+      z-index: 1;
+      @media (max-width: 768px) {
+        position: fixed;
+        bottom: 0;
+        margin: auto;
+      }
       .recipes {
         position: relative;
         overflow: hidden;
         padding: 32px 18px 0;
+        background-image: url('../../assets/images/recipes/letter.png');
+        &-fixed {
+          position: fixed;
+          top: 0;
+          width: 242px;
+          @media (max-width: 768px) {
+            position: relative;
+            width: 100%;
+          }
+        }
         &-success {
           text-align: center;
           line-height: 87px;
@@ -93,6 +121,13 @@ h5 {
           height: 21px;
           color: #0014dd;
           font-size: 20px;
+          cursor: pointer;
+          @media (max-width: 768px) {
+            display: block;
+          }
+        }
+        .arrowUp {
+          transform: rotate(180deg);
         }
         &-hello {
           font-family: Poppins;
@@ -115,13 +150,10 @@ h5 {
         }
         &-separator {
           display: block;
-          width: 100%;
+          width: 99%;
           border: 1px dashed #0014dd;
           margin-top: 40px;
           margin-bottom: 30px;
-          // @media (min-width: 992px) and (max-width: 1200px) {
-          //   margin-bottom: -17px
-          // }
         }
         &-list {
           padding: 0;
@@ -129,14 +161,11 @@ h5 {
           margin-top: 32px;
           padding-right: 0;
           &.add-scroll {
-            height: 139px;
+            height: 160px;
             overflow-x: hidden;
             overflow-y: scroll;
             width: 97%;
             padding-right: 10px;
-            // @media (min-width: 992px) and (max-width: 1200px) {
-            //  height: 73px
-            // }
             &::-webkit-scrollbar {
               width: 4px;
             }
@@ -187,6 +216,7 @@ h5 {
           }
           .btn-checkout:disabled {
             font-weight: normal;
+            background-color: #4c57c5;
           }
         }
         &-letter {

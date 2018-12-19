@@ -1,11 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import "./Sidebar.scss";
+import "./SidebarContent.scss";
 
 import dashboardRoutes from "../../routes/dashboard";
 
-class Sidebar extends React.Component {
+class SidebarContent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,4 +51,4 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+export default SidebarContent;
