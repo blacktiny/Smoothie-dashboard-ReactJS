@@ -6,6 +6,14 @@ import "./Header.scss";
 import { logoutUser } from "../../actions/user";
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      onMenuClicked: this.props.onClick
+    }
+  }
+
   doLogout = () => {
     this.props.dispatch(logoutUser());
   };
@@ -13,10 +21,17 @@ class Header extends React.Component {
   render() {
     return (
       <div className="navbar">
+        <div className="navbar-menu">
+          <button className="btn-menu" onClick={this.state.onMenuClicked}>
+            <SVG
+              src={require("../../assets/images/navbar-mobile-menu-icon.svg")}
+            />
+          </button>
+        </div>
         <div className="navbar-search">
           <SVG
             className="navbar-search-icon"
-            src={require("../../assets/images/_ionicons_svg_ios-search.svg")}
+            src={require("../../assets/images/navbar-search-icon.svg")}
           />
           <div className="navbar-search-input">
             <input
@@ -29,7 +44,7 @@ class Header extends React.Component {
         <div className="navbar-btn-section">
           <div className="btn-settings-section">
             <button className="btn-settings">
-              <img src={require('../../assets/images/ion-android-settings-ionicons.png')} alt="" />
+              <img src={require('../../assets/images/navbar-settings-icon.png')} alt="" />
             </button>
           </div>
           <div className="btn-user-section">

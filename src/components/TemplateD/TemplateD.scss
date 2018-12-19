@@ -44,11 +44,7 @@ h3 {
   -webkit-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
-  cursor: pointer;
-  // @media (max-width: 992px) {
-  //   width: 270px;
-  //   margin: 30px auto;
-  // }
+  cursor: default;
   &--bg {
     &_red {
       background-image: url("../../assets/images/recipes/red.png");
@@ -75,9 +71,6 @@ h3 {
     font-size: 26px;
     font-weight: 600;
     line-height: 36px;
-    // @media (min-width: 992px) and (max-width: 1200px) {
-    //   font-size: 21px
-    //   }
   }
   &__icons {
     position: absolute;
@@ -91,12 +84,6 @@ h3 {
     margin: auto;
     height: 24px;
     width: 188px;
-    // @media (max-width: 1201px) and (min-width: 992px) {
-    //   width: 87%;
-    // }
-    // @media (max-width: 768px) {
-    //   width: 69%;
-    // }
   }
   &__btn {
     width: 88px;
@@ -114,9 +101,6 @@ h3 {
     float: right;
     pointer-events: none;
     cursor: default;
-    &:hover {
-      text-decoration: none;
-    }
     &--bgc {
       &_red {
         background-color: #fdd8dd;

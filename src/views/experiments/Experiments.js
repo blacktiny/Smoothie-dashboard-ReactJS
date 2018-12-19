@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import SVG from "react-inlinesvg";
 
 import "./Experiments.scss";
 
@@ -12,11 +15,31 @@ class Experiments extends React.Component {
     super(props);
 
     this.state = {
-      approve_count: 3,
       recipe_count: 0,
-      recipe_list: []
+      recipe_list: [],
+      recipe_fixStyle: "",
+      recipe_toggleStyle: " recipe-closed",
+      recipe_arrowStyle: " arrowUp",
+      bRecipeOpened: false,
+      approvedExpList: this.props.auth.approvedExpList
     };
   }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+  
+  handleScroll = () => {
+    if (window.scrollY >= 200) {
+      this.setState({ recipe_fixStyle: " recipes-fixed" });
+    } else {
+      this.setState({ recipe_fixStyle: "" });
+    }
+  };
 
   onTemplateClicked = title => {
     var recipe_list = this.state.recipe_list.slice();
@@ -31,17 +54,28 @@ class Experiments extends React.Component {
     this.setState({ recipe_list: recipe_list });
   };
 
+  onCollapse = () => {
+    const { bRecipeOpened } = this.state;
+    this.setState({ bRecipeOpened: !bRecipeOpened});
+    var bOpened = !bRecipeOpened;
+
+    if (bOpened) {
+      this.setState({ recipe_toggleStyle: " recipe-opened", recipe_arrowStyle: " arrowDown" });
+    } else {
+      this.setState({ recipe_toggleStyle: " recipe-closed", recipe_arrowStyle: " arrowUp" });
+    }
+  }
+
   render() {
-    const { approve_count } = this.state;
-    const { recipe_list } = this.state;
+    const { approvedExpList, recipe_list, recipe_fixStyle, recipe_toggleStyle, recipe_arrowStyle } = this.state;
     const recipe_count = recipe_list.length;
 
     let recipe_output;
 
-    if (approve_count > 0) {
+    if (approvedExpList.length > 0) {
       recipe_output = (
         <div className="list-section-content">
-          {Experiments_list.map((prop, key) => {
+          {approvedExpList.map((prop, key) => {
             return (
               <Template
                 onClick={() => this.onTemplateClicked(prop.content.title)}
@@ -69,14 +103,19 @@ class Experiments extends React.Component {
             <div className="list-section">
               <h4 className="text">
                 You currently have{" "}
-                <span className="number">{approve_count}</span> approved growth
+                <span className="number">{approvedExpList.length}</span> approved growth
                 Experiments 😊{" "}
               </h4>
               {recipe_output}
             </div>
           </div>
-          <div className="experiment-approved-recipe">
-            <div className="recipes">
+          <div className={"experiment-approved-recipe" + recipe_toggleStyle}>
+            <div className={"recipes" + recipe_fixStyle}>
+              <span class={"recipes-chevron" + recipe_arrowStyle} onClick={() => this.onCollapse()}>
+                <SVG
+                  src={require("../../assets/images/arrow-down.svg")}
+                />
+              </span>
               <p className="recipes-hello">Hello 👋 !</p>
               <h5 className="recipes-title">
                 You’ve selected <span className="number">({recipe_count})</span>{" "}
@@ -102,7 +141,6 @@ class Experiments extends React.Component {
                   Checkout
                 </button>
               </form>
-              <img className="recipes-letter" src={require("../../assets/images/recipes/letter.png")} alt="letter" />
             </div>
           </div>
         </div>
@@ -119,4 +157,10 @@ class Experiments extends React.Component {
   }
 }
 
-export default Experiments;
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(Experiments));

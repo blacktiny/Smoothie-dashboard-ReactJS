@@ -10,7 +10,35 @@ export default function auth(
   state = {
     isFetching: false,
     isAuthenticated: isAuthenticated ? true : false,
-    approvedExpList: [],
+    approvedExpList: [
+      {
+        content: {
+          title: "In-Product Feature Optimization",
+          link1: "Engagement",
+          link2: "Product",
+          background: "pink",
+          icon: ["3.png", "2.png", "1.png"]
+        }
+      },
+      {
+        content: {
+          title: "In-Product Upsell Path Optimization",
+          link1: "Revenue",
+          link2: "Product",
+          background: "green",
+          icon: ["3.png", "2.png", "1.png"]
+        }
+      },
+      {
+        content: {
+          title: "Advocacy Process Optimization",
+          link1: "Virality",
+          link2: "Product",
+          background: "orange",
+          icon: ["4.png", "3.png", "2.png", "1.png"]
+        }
+      }
+    ],
     isPwdCreated: false
   },
   action
