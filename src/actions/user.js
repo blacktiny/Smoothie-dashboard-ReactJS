@@ -74,11 +74,12 @@ export function loginUser(creds) {
   //     .catch(err => console.error('Error: ', err));
   // };
 
-  localStorage.setItem("id_token", "token");
   localStorage.setItem("isAuthenticated", JSON.stringify(creds.login));
+  localStorage.setItem("login", JSON.stringify(creds.login));
 
   return {
-    type: ActionTypes.LOGIN_SUCCESS
+    type: ActionTypes.LOGIN_SUCCESS,
+    login: creds.login
   };
 }
 

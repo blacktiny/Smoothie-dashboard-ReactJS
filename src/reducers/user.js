@@ -5,6 +5,7 @@ import { ActionTypes } from "../constants/index";
 // we would also want a util to check if the token is expired.
 
 let isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated"));
+let login = JSON.parse(localStorage.getItem("login"));
 
 export default function auth(
   state = {
@@ -39,7 +40,8 @@ export default function auth(
         }
       }
     ],
-    isPwdCreated: false
+    isPwdCreated: false,
+    login: login
   },
   action
 ) {
@@ -54,7 +56,7 @@ export default function auth(
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
-        errorMessage: ""
+        login: action.login
       });
     case ActionTypes.LOGIN_FAILURE:
       return Object.assign({}, state, {
@@ -64,7 +66,8 @@ export default function auth(
       });
     case ActionTypes.LOGOUT_SUCCESS:
       return Object.assign({}, state, {
-        isAuthenticated: false
+        isAuthenticated: false,
+        login: ""
       });
     case ActionTypes.PWD_CREATE_SUCCESS:
       return Object.assign({}, state, {
